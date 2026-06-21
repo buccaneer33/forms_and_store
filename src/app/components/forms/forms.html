@@ -1,0 +1,70 @@
+<ul>
+  @for(item of thedtg(); track item){
+  <li>{{item}}</li>
+  } @empty {
+      <li>There are no items.</li>
+  }
+</ul>
+
+<form [formGroup]="form1" (ngSubmit)="submitForm()">
+  <div class="form-group">
+    <label for="title">Заголовок</label>
+    <input
+      id="title"
+      formControlName="title"
+      type="text"
+      placeholder="Введите заголовок"
+    />
+    @if (form1.get('title')?.invalid && form1.get('title')?.touched) {
+      <div class="error">
+        @if (form1.get('title')?.errors?.['required']) {
+          <span>Заголовок обязателен</span>
+        }
+        @if (form1.get('title')?.errors?.['maxlength']) {
+          <span>Максимум 3 символа</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="description">Описание</label>
+    <textarea
+      id="description"
+      formControlName="description"
+      placeholder="Введите описание"
+    ></textarea>
+    @if (form1.get('description')?.invalid && form1.get('description')?.touched) {
+      <div class="error">
+        @if (form1.get('description')?.errors?.['required']) {
+          <span>Описание обязательно</span>
+        }
+        @if (form1.get('description')?.errors?.['maxlength']) {
+          <span>Максимум 5 символов</span>
+        }
+      </div>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="price">Цена</label>
+    <input
+      id="price"
+      formControlName="price"
+      type="number"
+      placeholder="Введите цену"
+    />
+    @if (form1.get('price')?.invalid && form1.get('price')?.touched) {
+      <div class="error">
+        @if (form1.get('price')?.errors?.['min']) {
+          <span>Минимум 0</span>
+        }
+        @if (form1.get('price')?.errors?.['max']) {
+          <span>Максимум 10 000 000</span>
+        }
+      </div>
+    }
+  </div>
+
+  <button type="submit" [disabled]="form1.invalid">Отправить</button>
+</form>

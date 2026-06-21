@@ -1,0 +1,40 @@
+<div class="catalog">
+  <header class="catalog-header">
+    <h1>🧒 KidsShop</h1>
+    <p>Одежда для детей от 0 до 14 лет</p>
+  </header>
+
+  @if (loading$ | async) {
+    <div class="loading">
+      <div class="spinner"></div>
+      <p>Загрузка товаров...</p>
+    </div>
+  } @else {
+    <div class="products-grid">
+      @for (product of products$ | async; track trackByProductId($index, product)) {
+        <div class="product-card" (click)="selectProduct(product.id)">
+          @if (product.isNew) {
+            <span class="badge-new">Новинка</span>
+          }
+          <div class="product-image">
+            <img [src]="product.imageUrl" [alt]="product.name" loading="lazy" />
+          </div>
+          <div class="product-info">
+            <h3>{{ product.name }}</h3>
+            <p class="product-description">{{ product.description | slice: 0: 60 }}...</p>
+            <div class="product-meta">
+              <span class="product-price">{{ product.price | currency: 'RUB' }}</span>
+              <span class="product-rating">⭐ {{ product.rating }}</span>
+            </div>
+            <div class="product-tags">
+              <span class="tag">{{ product.ageRange }}</span>
+              <span class="tag tag-gender" [class.tag-boy]="product.gender === 'boy'" [class.tag-girl]="product.gender === 'girl'" [class.tag-unisex]="product.gender === 'unisex'">
+                {{ product.gender === 'boy' ? '👦' : product.gender === 'girl' ? '👧' : '🧒' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

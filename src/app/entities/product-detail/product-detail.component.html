@@ -1,0 +1,71 @@
+<div class="product-detail">
+  @let product = product$ | async;
+
+  @if (product) {
+    <button class="back-btn" (click)="goBack()">← Назад в каталог</button>
+
+    <div class="product-content">
+      <div class="product-image">
+        <img [src]="product.imageUrl" [alt]="product.name" />
+        @if (product.isNew) {
+          <span class="badge-new">Новинка</span>
+        }
+      </div>
+
+      <div class="product-info">
+        <h1>{{ product.name }}</h1>
+        <div class="rating">⭐ {{ product.rating }} / 5</div>
+        <p class="description">{{ product.description }}</p>
+
+        <div class="price">{{ product.price | currency: 'RUB' }}</div>
+
+        <div class="meta-info">
+          <div class="meta-item">
+            <span class="label">Возраст:</span>
+            <span class="value">{{ product.ageRange }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="label">Пол:</span>
+            <span class="value">
+              @if (product.gender === 'boy') { 👦 Мальчик }
+              @else if (product.gender === 'girl') { 👧 Девочка }
+              @else { 🧒 Унисекс }
+            </span>
+          </div>
+        </div>
+
+        <div class="size-selector">
+          <label>Размер:</label>
+          <div class="sizes">
+            @for (size of product.sizes; track size) {
+              <button
+                class="size-btn"
+                [class.selected]="selectedSize === size"
+                (click)="selectedSize = size"
+              >
+                {{ size }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="quantity-selector">
+          <label>Количество:</label>
+          <div class="quantity-controls">
+            <button (click)="quantity = quantity > 1 ? quantity - 1 : 1">−</button>
+            <span>{{ quantity }}</span>
+            <button (click)="quantity = quantity + 1">+</button>
+          </div>
+        </div>
+
+        <button
+          class="add-to-cart-btn"
+          [disabled]="!selectedSize"
+          (click)="addToCart(product)"
+        >
+          🛒 Добавить в корзину
+        </button>
+      </div>
+    </div>
+  }
+</div>

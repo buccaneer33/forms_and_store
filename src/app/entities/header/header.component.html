@@ -1,0 +1,16 @@
+<header class="header">
+  <div class="header-content">
+    <a routerLink="/" class="logo">🧒 KidsShop</a>
+    <nav class="nav">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Каталог</a>
+      <a routerLink="/cart" routerLinkActive="active" class="cart-link">
+        🛒 Корзина
+        @let count = cartItemCount$ | async;
+        @if (count && count > 0) {
+          <span class="cart-badge">{{ count }}</span>
+        }
+      </a>
+      <a routerLink="/commodity">Новый товар</a>
+    </nav>
+  </div>
+</header>

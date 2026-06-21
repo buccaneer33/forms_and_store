@@ -1,0 +1,77 @@
+<form [formGroup]="mainForm" (ngSubmit)="submitForm()">
+  <div class="form-group">
+    <label for="title">Заголовок</label>
+    <app-string-input formControlName="name"></app-string-input>
+  </div>
+  <div class="form-group">
+    <label for="description">Описание</label>
+    <input
+      id="description"
+      formControlName="description"
+      type="text"
+      placeholder="Введите заголовок"
+    />
+    @if (mainForm.get('description')?.invalid && mainForm.get('description')?.touched) {
+      <div class="error">
+        @if (mainForm.get('description')?.errors?.['required']) {
+          <span>Заголовок обязателен</span>
+        }
+        @if (mainForm.get('description')?.errors?.['minlength']) {
+          <span>Максимум 3 символа</span>
+        }
+      </div>
+    }
+  </div>
+  <div class="form-group">
+    <label for="gender">Описание</label>
+    <input
+      id="gender"
+      formControlName="gender"
+      type="text"
+      placeholder="Введите заголовок"
+    />
+    @if (mainForm.get('gender')?.invalid && mainForm.get('gender')?.touched) {
+      <div class="error">
+        @if (mainForm.get('gender')?.errors?.['required']) {
+          <span>Заголовок обязателен</span>
+        }
+        @if (mainForm.get('gender')?.errors?.['gender']) {
+          <span>Введите корректный пол</span>
+        }
+      </div>
+    }
+  </div>
+</form>
+
+<button (click)="showForm()">show form</button>
+<ul>
+  @for(control of controls; track control){
+    @if(control.value !== null || control.value !== undefined){
+      <li>{{control.value}}</li>
+    } @else {
+      <li>-</li>
+    }
+
+  }
+</ul>
+
+@switch (mainForm.valid) {
+  @case (true) {
+    <span>Valid</span>
+  }
+  @case(false){
+    <span>Invalid</span>
+  }
+}
+@if(mainForm.valid){
+  <ng-container [ngTemplateOutlet]="validForm" [ngTemplateOutletContext]="{ message: 'Is Valid'}"></ng-container>
+
+}
+
+<ng-template #invalidForm let-message="message">
+  <span>Invalid</span><span>{{message}}</span>
+</ng-template>
+
+<ng-template #validForm let-message="message">
+  <span>Valid</span><span>{{message}}</span>
+</ng-template>
