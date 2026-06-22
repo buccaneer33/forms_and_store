@@ -12,10 +12,9 @@ interface LoginData {
 
 @Component({
   selector: 'app-forms',
-  //imports: [FormField],
   templateUrl: './forms.html',
   styleUrl: './forms.scss',
-  imports: [FormField, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
 })
 export class Forms {
   formsBuilder = inject(FormBuilder);

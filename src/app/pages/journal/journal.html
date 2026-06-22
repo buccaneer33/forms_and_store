@@ -1,0 +1,172 @@
+<div class="journal-page">
+  <!-- 2. Header -->
+  <header class="journal-header">
+    <img src="/logo.png" alt="Logo" class="header-logo" />
+    <div class="header-nav-buttons">
+      <button class="btn-main">Главное</button>
+      <button class="btn-services">Сервисы</button>
+    </div>
+    <button class="btn-add">Добавить объявление +</button>
+    <div class="header-icon-buttons">
+      <button class="icon-btn">
+        <span class="icon-btn-icon"><nz-icon nzType="message" nzTheme="outline" /></span>
+        <span class="icon-btn-label">Входящие</span>
+      </button>
+      <button class="icon-btn">
+        <span class="icon-btn-icon"><nz-icon nzType="youtube" nzTheme="outline" /></span>
+        <span class="icon-btn-label">Журнал</span>
+      </button>
+      <button class="icon-btn">
+        <span class="icon-btn-icon"><nz-icon nzType="tag" nzTheme="outline" /></span>
+        <span class="icon-btn-label">Желаемое</span>
+      </button>
+      <button class="icon-btn">
+        <span class="icon-btn-icon"><nz-icon nzType="shopping-cart" nzTheme="outline" /></span>
+        <span class="icon-btn-label">Корзина</span>
+      </button>
+      <button class="icon-btn">
+        <span class="icon-btn-icon"><nz-icon nzType="bell" nzTheme="outline" /></span>
+        <span class="icon-btn-label">Уведомления</span>
+      </button>
+      <button class="icon-btn">
+        <span class="icon-btn-icon"><nz-icon nzType="user" nzTheme="outline" /></span>
+        <span class="icon-btn-label">Войти</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 3. Main content -->
+  <main class="journal-main">
+    <!-- 3.1 Top bar -->
+    <div class="top-bar">
+      <nz-breadcrumb>
+        <nz-breadcrumb-item><a routerLink="/">Главная</a></nz-breadcrumb-item>
+        <nz-breadcrumb-item>Журнал</nz-breadcrumb-item>
+      </nz-breadcrumb>
+      <h1 class="top-bar-title">Медиа</h1>
+    </div>
+<div class="content-layout">
+      <!-- 3.2 Search column -->
+      <aside class="search-column">
+        <!-- 3.2.1 Search widget -->
+        <div class="search-widget">
+          <div class="search-input-wrapper">
+            <nz-space nzDirection="vertical" style="width: 100%">
+              <nz-input-search nzEnterButton="Найти">
+                <nz-icon nzInputPrefix nzType="search" nzTheme="outline" />
+                <input nz-input placeholder="input search text" />
+              </nz-input-search>
+            </nz-space>
+          </div>
+        </div>
+
+        <!-- 3.2.2 Selected filters -->
+        <div class="filters-widget">
+          <div class="filters-header">
+            <span class="filters-header-title">Выбранные фильтры</span>
+            <span class="filters-count">1</span>
+            <button class="filters-clear">Очистить</button>
+          </div>
+          <div class="filters-tags">
+            <nz-tag nzMode="closeable" class="filter-tag">Тренировка</nz-tag>
+          </div>
+
+        </div>
+
+        <!-- 3.2.3 Select widgets -->
+        <div class="select-widget">
+          <label class="select-label">Вид спорта</label>
+          <nz-select nzPlaceHolder="Выберите вид спорта" nzShowSearch>
+            @for (sport of sports; track sport.value) {
+              <nz-option [nzValue]="sport.value" [nzLabel]="sport.label" />
+            }
+          </nz-select>
+        </div>
+
+        <div class="select-widget">
+          <label class="select-label">Тэги</label>
+          <nz-select nzPlaceHolder="Выберите тэг" nzShowSearch>
+            @for (tag of tags; track tag.value) {
+              <nz-option [nzValue]="tag.value" [nzLabel]="tag.label" />
+            }
+          </nz-select>
+        </div>
+
+        <!-- 3.2.4 Show button -->
+        <button class="show-button">Показать 17 публикаций</button>
+      </aside>
+
+      <!-- 3.3 News grid -->
+      <div class="news-grid">
+        @for (item of [1, 2, 3]; track item) {
+          <article class="news-card">
+            <!-- Card header -->
+            <div class="card-header">
+              <img src="/logoCS.png" alt="Sport Click" class="card-header-logo" />
+              <div class="card-header-info">
+                <span class="card-header-title">Sport Click</span>
+                <span class="card-header-subtitle">21 июня 2026 в 22:57</span>
+              </div>
+              <div class="card-header-menu">
+                <button nz-dropdown [nzDropdownMenu]="cardMenu" class="menu-trigger">
+                  <nz-icon nzType="more" nzTheme="outline" />
+                </button>
+                <nz-dropdown-menu #cardMenu="nzDropdownMenu">
+                  <ul nz-menu>
+                    <li nz-menu-item>Редактировать</li>
+                    <li nz-menu-item>Удалить</li>
+                  </ul>
+                </nz-dropdown-menu>
+              </div>
+            </div>
+
+            <!-- Gallery -->
+            <div class="card-gallery">
+              <div class="gallery-wrapper">
+                @for (image of images; track image; let i = $index) {
+                  @if (i === currentImageIndex) {
+                    <img [src]="image" alt="Gallery image {{ i + 1 }}" class="gallery-image" />
+                  }
+                }
+              </div>
+              <button class="gallery-arrow gallery-arrow-left"
+                [class.disabled]="currentImageIndex === 0"
+                (click)="prevImage()">&#8249;</button>
+              <button class="gallery-arrow gallery-arrow-right"
+                [class.disabled]="currentImageIndex === images.length - 1"
+                (click)="nextImage()">&#8250;</button>
+              <span class="gallery-tag">Хоккей</span>
+              <span class="gallery-counter">{{ currentImageIndex + 1 }} / {{ images.length }}</span>
+            </div>
+
+            <!-- Content -->
+            <div class="card-content">
+              <div class="card-content-title-wrapper"><h2 class="card-content-title">{{ titleText }}</h2></div>
+              <div class="card-content-text-wrapper"><p class="card-content-text">{{ descriptionText }}</p></div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="card-footer">
+              <div class="footer-stat">
+                <nz-icon nzType="like" nzTheme="outline" />
+                <span>Понравилось</span>
+                <span class="footer-stat-count">414</span>
+              </div>
+              <div class="footer-stat">
+                <nz-icon nzType="message" nzTheme="outline" />
+                <span>5</span>
+              </div>
+              <div class="footer-stat">
+                <nz-icon nzType="eye" nzTheme="outline" />
+                <span>500</span>
+              </div>
+              <div class="footer-stat">
+                <nz-icon nzType="share-alt" nzTheme="outline" />
+              </div>
+            </footer>
+          </article>
+        }
+      </div>
+    </div>
+  </main>
+</div>

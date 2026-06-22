@@ -18,6 +18,10 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/commodity/commodity.routes').then(m => m.CommodityRoutes)
   },
   {
+    path: 'journal',
+    loadChildren: () => import('./pages/journal/journal.routes').then(m => m.JournalRoutes)
+  },
+  {
     path: '**', redirectTo: ''
   },
 ];

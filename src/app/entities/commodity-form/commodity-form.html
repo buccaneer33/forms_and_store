@@ -63,10 +63,6 @@
     <span>Invalid</span>
   }
 }
-@if(mainForm.valid){
-  <ng-container [ngTemplateOutlet]="validForm" [ngTemplateOutletContext]="{ message: 'Is Valid'}"></ng-container>
-
-}
 
 <ng-template #invalidForm let-message="message">
   <span>Invalid</span><span>{{message}}</span>

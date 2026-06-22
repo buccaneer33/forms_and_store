@@ -1,12 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomValodators } from '../../models/custom-validators';
-import { FormComponentsModule } from '../form-components/form-components-module';
-import { NgTemplateOutlet } from "../../../../node_modules/@angular/common/types/_common_module-chunk";
 
 @Component({
   selector: 'app-commodity-form',
-  imports: [ReactiveFormsModule, FormComponentsModule, NgTemplateOutlet],
+  imports: [ReactiveFormsModule],
   templateUrl: './commodity-form.html',
   styleUrl: './commodity-form.scss',
 })
