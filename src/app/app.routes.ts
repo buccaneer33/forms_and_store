@@ -4,9 +4,9 @@ import { ProductDetailComponent } from './entities/product-detail/product-detail
 import { CartComponent } from './components/cart/cart.component';
 
 export const routes: Routes = [
-  {
+  /*{
     path: '', component: CatalogComponent
-  },
+  },*/
   {
     path: 'product/:id', component: ProductDetailComponent
   },
@@ -18,7 +18,7 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/commodity/commodity.routes').then(m => m.CommodityRoutes)
   },
   {
-    path: 'journal',
+    path: '',
     loadChildren: () => import('./pages/journal/journal.routes').then(m => m.JournalRoutes)
   },
   {
