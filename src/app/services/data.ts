@@ -32,6 +32,8 @@ export class UserService {
     const users: User[] = this._data.getValue() as User[];
     users?.push(user);
     this.data$ = users.push("Вентилятор");
+
+    //Я там добавил
     this.addUserRequest(user);
   }
 
